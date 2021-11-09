@@ -17,4 +17,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('V1')->prefix('v1')->group(function(){
     Route::get('version','IndexController@version');
+    Route::get('users/{id}','IndexController@userInfo');
+    Route::get('user/name','IndexController@userName');
+    Route::get('user/id','IndexController@userID');
+    Route::get('debug','IndexController@debug');
+    Route::post('auth/register','IndexController@register');
+    Route::post('auth/login','IndexController@login');
+
+    Route::middleware('auth:api')->group(function(){
+        Route::get('me/collection/{id}','IndexController@myCollection');
+    });
 });
