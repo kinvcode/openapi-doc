@@ -14,5 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('full', function () {
+    return view('full');
+});
 Route::get('json','ApiDocController@openApiJson');
 Route::get('json/full','ApiFullDocController@openApiJson');
