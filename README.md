@@ -312,9 +312,9 @@ tags | [string] | 【必须】标记
 summary | string | 【必须】概要描述
 description | string | 【可选】描述
 security | [Security Requirement Object](#securityRequirementObject) |【可选】权限认证， 如果是需要身份认证的API则为必须
-parameters |[[Parameter Object](#parameterObject) \| [Reference Object](#referenceObject)] | 请求参数
-requestBody | Request Body Object | 请求体
-responses | Responses Object | 【必须】响应体
+parameters |[[Parameter Object](#parameterObject) \| [Reference Object](#referenceObject)] | 请求参数（一般用于GET请求） 
+requestBody | [Request Body Object](#requestBodyObject) | 请求体（一般用于POST、PUT、PATCH请求传递参数） 
+responses | [Responses Object](#responsesObject) | 【必须】响应体
 deprecated | boolean | 是否已弃用
 operationId | string | 用于标识操作的唯一字符串
 
@@ -723,7 +723,28 @@ required | boolean | 是否必须
 
 #### 代码示例
 ```php
-
+[
+'post' => [
+    'tags' => ['请求体'],
+    'summary' => "普通请求体",
+    'requestBody' => [
+        'description' => '请求体描述',
+        'required' => true,
+        'content' => [
+            'application/json' => [
+                'schema' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'name' => [
+                            'type' => 'string',
+                            'example' => 'kinv'
+                        ]
+                    ]
+                ]
+            ],
+        ],
+    ],
+]
 ```
 
 
