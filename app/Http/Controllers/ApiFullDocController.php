@@ -111,7 +111,9 @@ class ApiFullDocController extends Controller
             '/user/id' => $this->apiUserID(),
             '/debug' => $this->ApiDebug(),
             '/me/collection/{id}' => $this->apiNewMyCollection(),
-
+            '/response' => $this->apiResponse(),
+            '/request' => $this->apiRequest(),
+            '/request/file' => $this->apiRequestForFile(),
 
             // 其他
             '/me/collection' => $this->apiMyCollection(),
@@ -487,6 +489,151 @@ class ApiFullDocController extends Controller
                             ]
                         ]
                     ]
+                ]
+            ],
+        ];
+    }
+
+    public function apiResponse()
+    {
+        return [
+            'get' => [
+                'tags' => ['响应体'],
+                'summary' => "普通响应体",
+                'responses' => [
+                    '200' => [
+                        'description' => '成功获取数据',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'info' => [
+                                            'type' => 'string',
+                                            'example' => '数据结构',
+                                        ],
+                                    ],
+                                ]
+                            ]
+                        ]
+                    ],
+                    'default' => [
+                        'description' => '获取数据失败',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'status' => [
+                                            'type' => 'integer',
+                                            'example' => -1,
+                                        ],
+                                        'msg' => [
+                                            'type' => 'string',
+                                            'example' => 'fail',
+                                        ],
+                                    ],
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+        ];
+    }
+
+    public function apiRequest()
+    {
+        return [
+            'post' => [
+                'tags' => ['请求体'],
+                'summary' => "普通请求体",
+                'requestBody' => [
+                    'description' => '请求体描述',
+                    'required' => true,
+                    'content' => [
+                        'application/json' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'properties' => [
+                                    'name' => [
+                                        'type' => 'string',
+                                        'example' => 'kinv'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => '成功获取数据',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'name' => [
+                                            'type' => 'string',
+                                            'example' => 'kinv',
+                                        ],
+                                    ],
+                                ]
+                            ]
+                        ]
+                    ],
+                ]
+            ],
+        ];
+    }
+
+    public function apiRequestForFile()
+    {
+        return [
+            'post' => [
+                'tags' => ['请求体'],
+                'summary' => "带有文件的请求",
+                'requestBody' => [
+                    'required' => true,
+                    'content' => [
+                        'multipart/form-data' => [
+                            'schema' => [
+                                'type' => 'object',
+                                'required' => ['avatar', 'type'],
+                                'properties' => [
+                                    'avatar' => [
+                                        'type' => 'string',
+                                        'format' => 'binary',
+                                        'description' => '图片文件：jpg,jpeg,png'
+                                    ],
+                                    'type' => [
+                                        'type' => 'string',
+                                        'enum' => ['avatar'],
+                                        'example' => 'avatar',
+                                        'description' => '图片的类型'
+                                    ],
+                                ],
+                            ]
+                        ]
+                    ],
+                ],
+                'responses' => [
+                    '200' => [
+                        'description' => '成功获取数据',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'file_name' => [
+                                            'type' => 'string',
+                                            'example' => 'demo.jpg',
+                                        ],
+                                    ],
+                                ]
+                            ]
+                        ]
+                    ],
                 ]
             ],
         ];

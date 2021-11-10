@@ -23,6 +23,9 @@ Route::namespace('V1')->prefix('v1')->group(function(){
     Route::get('debug','IndexController@debug');
     Route::post('auth/register','IndexController@register');
     Route::post('auth/login','IndexController@login');
+    Route::get('response','IndexController@response');
+    Route::post('request','IndexController@request');
+    Route::post('request/file','IndexController@requestFile');
 
     Route::middleware('auth:api')->group(function(){
         Route::get('me/collection/{id}','IndexController@myCollection');

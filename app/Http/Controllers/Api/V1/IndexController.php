@@ -82,4 +82,24 @@ class IndexController extends Controller
     {
         return ['info' => '正则表达式'];
     }
+
+    public function response()
+    {
+        try {
+            return ['info' => '正则表达式'];
+        } catch (\Exception $e) {
+            return ['status' => -1, 'msg' => 'fail'];
+        }
+    }
+
+    public function request(Request $request)
+    {
+        return ['name' => $request->post('name')];
+    }
+
+    public function requestFile(Request $request)
+    {
+        $file = $request->file('avatar');
+        return ['file_name' => $file->getClientOriginalName()];
+    }
 }

@@ -313,7 +313,7 @@ summary | string | 【必须】概要描述
 description | string | 【可选】描述
 security | [Security Requirement Object](#securityRequirementObject) |【可选】权限认证， 如果是需要身份认证的API则为必须
 parameters |[[Parameter Object](#parameterObject) \| [Reference Object](#referenceObject)] | 请求参数
-requestBody | Request Body Object | Reference Object 
+requestBody | Request Body Object | 请求体
 responses | Responses Object | 【必须】响应体
 deprecated | boolean | 是否已弃用
 operationId | string | 用于标识操作的唯一字符串
@@ -660,3 +660,90 @@ string | hostname | 【非规范】hostname
 string | ipv4 | 【非规范】ipv4 
 string | ipv6 | 【非规范】ipv6 
 
+### Responses Object
+<a name="responsesObject"></a>
+
+#### 固定字段
+type | format | 描述
+--- | --- | ---
+default | [Response Object](#responseObject) \| [Reference Object](#referenceObject) | 默认响应 
+
+#### 匹配字段
+type | format | 描述
+--- | --- | ---
+HTTP Status Code | [Response Object](#responseObject) \| [Reference Object](#referenceObject)  | HTTP status code 作为属性名 
+
+#### 代码示例
+```php
+'responses' => [
+    '200' => [
+        'description' => '成功获取数据',
+        'content' => [],
+    ],
+    'default' => [
+        'description' => '获取数据失败',
+        'content' => [],
+    ],
+]
+```
+
+### Response Object
+
+<a name="responseObject"></a>
+
+#### 固定字段
+type | format | 描述
+--- | --- | ---
+content | Map[`string`, [Media Type Object](#mediaTypeObject)] | 主要内容
+description | string | 描述文字
+headers | Map[`string`,Header Object] | [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md#referenceObject)]xxx 
+links | xxx | xxx
+
+#### 代码示例
+```php
+[
+    'description' => '成功获取数据',
+    'content' => [
+        'application/json' => [
+            'schema' => []
+        ]
+    ]
+]
+```
+
+### Request Body Object
+<a name="requestBodyObject"></a>
+
+#### 固定字段
+type | format | 描述
+--- | --- | ---
+content | Map[`string`, [Media Type Object](#mediaTypeObject)] | 主要内容
+description | string | 描述文字
+required | boolean | 是否必须
+
+#### 代码示例
+```php
+
+```
+
+
+### Media Type Object
+<a name="mediaTypeObject"></a>
+
+#### 固定字段
+type | format | 描述
+--- | --- | ---
+schema | [Schema Object](#schemaObject) \| [Reference Object](referenceObject) | 响应字段
+example | Any | 例子
+examples | Map[ string, Example Object \| Reference Object] | xxx
+encoding | 	Map[string, Encoding Object] | xxx
+
+#### Media Type Names
+* application/json
+* application/xml
+* application/x-www-form-urlencoded
+* multipart/form-data
+* text/plain; charset=utf-8
+* text/html
+* application/pdf
+* image/png
